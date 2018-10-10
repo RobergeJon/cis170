@@ -9,13 +9,14 @@ public class App {
 // sets wrong guesses to default(0) will update while game is being played
 	// All called later(besides wordBank)
 	
-	public static String[] wordBank = {"horse","cow","java","computer","Code","eclipse"};
+	public static int wrongGuess = 0;
+	
+	public static String[] wordBank = {"horse","cow","java","computer","Code","eclipse","rock","toast"};
 	
 	public static String word =wordBank[(int) (Math.random() * wordBank.length)];
 	
 	public static String gameMask = new String(new char[word.length()]).replace("\0","*");
 	
-	public static int wrongGuess = 0;
 	
 	
 	
@@ -26,11 +27,10 @@ public class App {
 			System.out.println("Guess a Letter"); // prompts user
 			System.out.println(gameMask); // prints current state of game
 			String wrongGuess = sc.next();
-			hang(wrongGuess); //brings wrongGuess count to next step 
+			hang(wrongGuess); 
 		}
 		sc.close();
 	}
-	
 	
 	
 	
@@ -45,24 +45,29 @@ public class App {
 				newgameMask +="*";
 			}
 		}
+		if (gameMask.equals(word)) { // completed game
+			System.out.println("You WON! the word was  " + word + "!");
+			// NEXT STEP refresh game. IF/Then statement asking "Keep Playing?"
+			
+			
+		}
 		if (gameMask.equals(newgameMask)) { // Adds 1 wrong guess to counter
 			wrongGuess++;
 			hangmanCounter();
 		}else {
 			gameMask = newgameMask;
 		}
-		if (gameMask.equals(word)) { // completed game
-			System.out.println("You Got the Word! " + word);
-			// NEXT STEP refresh game. IF/Then statement asking "Keep Playing?"
+			
+			
 		
-		}
+		
 	}
 	
 	
 	
 	public static void hangmanCounter() { // method prints out message depending on amount of wrong Guesses
 		if (wrongGuess == 1) {
-			System.out.println("Wrong Guess! 9 more Guesses");
+			System.out.println("Wrong Guess! You only get 9 more Guesses");
 		}else if (wrongGuess < 1 && wrongGuess < 10) {
 			System.out.println("Wrong Guess! Keep trying");
 		}else if (wrongGuess == 10)
